@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List App</title>
+<style>
+  body {
+    color: white;
+    font-family: Arial, sans-serif;
+    background-color: black;
+  }
+  #app {
+    max-width: 400px;
+    /* margin: 0 auto; */
+    padding: 60px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: absolute;
+    top: 30%;
+    left: 45%;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .completed {
+    text-decoration: line-through;
+    color: #aaa;
+  }
+  #taskInput{
+    border: 2px dotted blue;
+    padding: 10px;
+  }
+  button{
+    padding: 30px;
+    border-radius: 20%;
+    border: none;
+  }
+</style>
+</head>
+<body>
+  <div id="app">
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    function addTask() {
+      const taskInput = document.getElementById("taskInput");
+      const taskList = document.getElementById("taskList");
+      const taskText = taskInput.value.trim();
+
+      if (taskText === "") {
+        return;
+      }
+
+      const taskItem = document.createElement("li");
+      taskItem.innerHTML = `
+        <span>${taskText}</span>
+        <button onclick="toggleTaskCompletion(this)">Complete</button>
+        <button onclick="removeTask(this)">Remove</button>
+      `;
+
+      taskList.appendChild(taskItem);
+      taskInput.value = "";
+    }
+
+    function toggleTaskCompletion(button) {
+      const taskSpan = button.parentNode.querySelector("span");
+      taskSpan.classList.toggle("completed");
+    }
+
+    function removeTask(button) {
+      const taskItem = button.parentNode;
+      taskItem.parentNode.removeChild(taskItem);
+    }
+  </script>
+</body>
+</html>
